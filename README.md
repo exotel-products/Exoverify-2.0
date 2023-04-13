@@ -256,7 +256,68 @@ NOTE:
 
 Contact Exoverify support with supporting logs if issue persists or requires further support.
 
-### Webhooks :
+### CallBacks & Webhooks (nOTP/SMSOTP) : 
+Both these webhooks are optional , There are two callbacks that we support:
+
+* The Verification confirmation webhook: <p> Before the exoverify service makes a call, it first hits the endpoint that the tenant has
+configured to see if we need to continue to make the call or not. If the tenant returns a
+200, we proceed. 
+If not, we fail the verification with the reason `Denied`. This webhook
+is optional and is only hit if it is configured but the client. 
+  * The sample payload for the webhook is:
+
+        {
+        "verification_id": "5f564a2edd154e95b752cc260ead3b3f",
+        "application_id":"2d3a8f96d9e7436a9a5f93cae85dd3",
+        "country_code":"IN",
+        "mobile_number":"+919910166288",
+        }        
+
+   * Default Method supported : <b>GET</b>
+</p>     
+
+* Timeouts: <p> Default Timeout = 15 seconds (Your servers should ideally consume verification status within milliseconds, but Exotel will wait a maximum of 15 seconds for your endpoint to consume verification status and return `200 HTTP code`).
+In such cases,after 15 seconds we fail the particular verification request with status ` Denied` ,
+If your server needs to perform any complex logic or make internal network calls, it is possible that the verification status webhook request might time out. For that reason, you might want to have your webhook endpoint immediately acknowledge receipt by returning a `200 HTTP status code `, and then perform the rest of its operations, async.
+</p>
+
+* The Verification status webhook: <p> This webhook will ping the status of each verification request to your configured url endpoint. Already the NOTP Android SDK would be updating the application on status of the verification, 
+this is an additional mechanism for the tenant’s backend system to capture the status of verification request easily. 
+  * Sample for when the verification was <b>successful</b>:
+
+        {
+        "verification_id": "5f564a2edd154e95b752cc260ead3b3f",
+        "application_id":"2d3a8f96d9e7436a9a5f93cae85dd3",
+        "country_code":"IN",
+        "mobile_number":"+919910166288",
+        "status":"success",
+        "reason":null,
+        "timestamp": "2018-08-22T15:19:23Z",
+        }
+
+
+  * Sample for when the verification <b>failed</b>:
+
+        {
+        "verification_id":"5f564a2edd154e95b752cc260ead3b3f",
+        "application_id":"2d3a8f96d9e7436a9a5f93cae85dd3",
+        "country_code":"IN",
+        "mobile_number":"+919910166288",
+        "status":"fail",
+        "reason":"timeout",
+        "timestamp": "2018-08-22T15:19:23Z",
+        }
+  * Default Method supported : <b>POST</b>
+
+</p>
+
+* Responding to this webhook: <p> The HTTP Response for acknowledging the verification status callback webhook
+request should be 200 OK. All other non-200 HTTP codes or if your server is unable to
+respond will indicate that you have not received the verification. In such cases we don’t
+retry.</p>
+
+#### Orchestration Webhooks :
+
 * Event Webhook: <p> Please configure an API here to receive updates on the status (success/failure) of the verifications and the mechanism being implemented.</p>
 
     * The sample payload for the webhook in case of <b>success</b> is:
