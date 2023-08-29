@@ -5,23 +5,14 @@
 buildscript {
     repositories {
         mavenCentral()
-        maven { url 'https://maven.fabric.io/public' }
-        maven { url 'https://jitpack.io' }
     }
 
     dependencies {
-        // These docs use an open ended version so that our plugin
-        // can be updated quickly in response to Android tooling updates
 
-        // We recommend changing it to the latest version from our changelog:
-        // https://docs.fabric.io/android/changelog.html#fabric-gradle-plugin
-        classpath 'io.fabric.tools:gradle:1.+'
     }
 }
 
 apply plugin: 'com.android.application'
-
-apply plugin: 'io.fabric'
 
 configurations.all {
     // Check for updates every build
@@ -32,17 +23,15 @@ configurations.all {
 repositories {
     mavenCentral()
     maven { url 'https://maven.fabric.io/public' }
-//    maven { url 'https://jitpack.io' }
     maven { url 'https://mymavenrepo.com/repo/e01iL1W9Gdxw73PGI9LA/' }
 }
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion '27.0.3'
+    compileSdkVersion 33
     defaultConfig {
         applicationId "com.exotel.verificationdemoapp"
-        minSdkVersion 16
-        targetSdkVersion 26
+        minSdkVersion 21
+        targetSdkVersion 33
         versionCode 1
         versionName "1.6.0"
     }
@@ -68,19 +57,15 @@ dependencies {
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    implementation 'com.android.support:appcompat-v7:25.3.0'
-    implementation 'org.bitbucket.Exotel:exoverify:2.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
     implementation 'com.squareup.okhttp3:okhttp:3.6.0'
     implementation 'com.google.code.gson:gson:2.8.0'
     implementation 'com.googlecode.libphonenumber:libphonenumber:8.8.3'
     implementation 'dnsjava:dnsjava:2.1.6'
-//    implementation project(':exotelVerificationLibrary')
-//    implementation('com.exotel:verification:0.1.8@aar') {
-//        transitive = true;
-//        changing = true;
-//    }
-    implementation('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
-        transitive = true;
-    }
+    implementation platform('com.google.firebase:firebase-bom:31.2.3')
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'com.google.firebase:firebase-crashlytics-ndk'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.7'
+    implementation project(path: ':exoverify')
 }

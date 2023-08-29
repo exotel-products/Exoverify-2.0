@@ -13,8 +13,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -26,7 +24,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
 import com.exotel.verification.AppSettings;
 import com.exotel.verification.ExoverifyApp;
 import com.exotel.verification.OrchestrationAppSettings;
@@ -38,13 +38,13 @@ import com.exotel.verification.exposed_interfaces.TimerListener;
 import com.exotel.verification.VerificationListener;
 import com.exotel.verification.VerificationType;
 import com.exotel.verification.VerificationDetail;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import io.fabric.sdk.android.Fabric;
 import pl.droidsonroids.gif.GifImageView;
 
 public class VerificationActivity extends AppCompatActivity {
@@ -60,10 +60,10 @@ public class VerificationActivity extends AppCompatActivity {
 //    private static String ID="";
 
 //    for orchestration flow
-    private static String ACCOUNT_SID="";
-    private static String MASTER_TOKEN="";
+    private static String ACCOUNT_SID="exotel675";
+    private static String MASTER_TOKEN="9b31cd14c0e1ec42f1d46830217c3431cef902334a02db8b";
     private static String ID= "";
-    private static String MASTER_KEY="";
+    private static String MASTER_KEY="bf20817672bc76ef26cdc0007ca86f7333c43843dd17be05";
     private TextView timer;
 
     public static VerificationType mechanism;
@@ -108,6 +108,7 @@ public class VerificationActivity extends AppCompatActivity {
         EditText otpEditText = (EditText) findViewById(R.id.otpField);
 
         public void onVerificationStarted(final VerificationDetail verificationStart) {
+            Log.d(LOGGING_TAG,"onVerificationStarted");
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -129,6 +130,7 @@ public class VerificationActivity extends AppCompatActivity {
         }
 
         public void onVerificationSuccess(final VerificationDetail verificationSuccess) {
+            Log.d(LOGGING_TAG,"onVerificationSuccess");
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -169,7 +171,7 @@ public class VerificationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
+        Log.d(LOGGING_TAG,"onCreate");
         setContentView(R.layout.activity_main);
         timer = (TextView) findViewById(R.id.timer);
 
@@ -213,6 +215,7 @@ public class VerificationActivity extends AppCompatActivity {
                     }
 //                    initializeVerification();
                     String phoneNumber = spinner.getSelectedItem().toString() + editText.getText().toString();
+                    Log.d(LOGGING_TAG,"phoneNumber="+phoneNumber);
                     try {
                         button.setVisibility(View.INVISIBLE);
                         ivcross.setVisibility(View.INVISIBLE);
