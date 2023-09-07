@@ -60,10 +60,10 @@ public class VerificationActivity extends AppCompatActivity {
 //    private static String ID="";
 
 //    for orchestration flow
-    private static String ACCOUNT_SID="exotel675";
-    private static String MASTER_TOKEN="9b31cd14c0e1ec42f1d46830217c3431cef902334a02db8b";
+    private static String ACCOUNT_SID="";
+    private static String MASTER_TOKEN="";
     private static String ID= "";
-    private static String MASTER_KEY="bf20817672bc76ef26cdc0007ca86f7333c43843dd17be05";
+    private static String MASTER_KEY="";
     private TextView timer;
 
     public static VerificationType mechanism;
