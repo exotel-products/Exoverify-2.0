@@ -40,9 +40,19 @@ Please visit [Exoverify Dashboard](https://verify.exotel.com) to Create your nOT
 
 ## Android SDK Integration Steps
 1. Include the SDK library in your Android Project:
-   If you are using Gradle, you need to add the libray in the app level Gradle file, as shown below:
+    1. download above **exotelverify** library folder in different path
+    2. import above **exotelverify** library folder as module using following steps:
 
-        dependencies { implementation 'org.bitbucket.Exotel:exoverify:2.0.0' }
+        - File > Import Module
+
+    3. If you are using Gradle, you need to add the libray in the app level Gradle file, as shown below:
+
+            implementation project(path: ':exoverify')
+
+       ### Note
+       do upgrade sdk
+        - add updated sdk aar file  with in `exotelverify` folder
+        - change name and version in `exotelverify/build.gradle`
 
 2. A few other dependencies that you need to add are:
 
