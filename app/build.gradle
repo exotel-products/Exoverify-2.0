@@ -69,7 +69,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     implementation 'com.android.support:appcompat-v7:25.3.0'
-    implementation 'org.bitbucket.Exotel:exoverify:2.0.0'
     implementation 'com.squareup.okhttp3:okhttp:3.6.0'
     implementation 'com.google.code.gson:gson:2.8.0'
     implementation 'com.googlecode.libphonenumber:libphonenumber:8.8.3'
@@ -83,4 +82,5 @@ dependencies {
         transitive = true;
     }
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.7'
+    implementation project(path: ':exoverify')
 }
