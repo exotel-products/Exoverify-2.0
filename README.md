@@ -196,7 +196,7 @@ NOTE:
         VerificationParams verificationParams = new VerificationParams.Builder()
                                 .setVerificationListener(new verifyListener())
                                 .setOtpParser(new Otp()) ----> only required for smsotp with auto read and orchestration with auto read
-                                .setTimerListener(new Timer()) ------> optional
+                                .setTimerListener(new Timer())
                                 .setReplacementVar(new ArrayList<String>())  ------> onl required for smsotp and orchestration
                                 .build();
 
