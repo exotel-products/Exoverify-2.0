@@ -240,8 +240,8 @@ public class VerificationActivity extends AppCompatActivity {
                                 .setOtpParser(new Otp())
 //                                optional parameter
                                 .setTimerListener(new Timer())
-//                                for smsotp/orchestration
-                                .setReplacementVar(new ArrayList<String>(Arrays.asList("zafar")))
+                                .setTimeout(15)
+//                                .setReplacementVar(new ArrayList<String>(Arrays.asList("zafar")))
                                 .build();
                         verificationApp.verify(phoneNumber, verificationParams);
                     } catch (Exception e) {
