@@ -236,9 +236,7 @@ public class VerificationActivity extends AppCompatActivity {
                                 .build();
                         VerificationParams verificationParams = new VerificationParams.Builder()
                                 .setVerificationListener(new verifyListener())
-//                                only required if auto read otp is enabled
-                                .setOtpParser(new Otp())
-//                                optional parameter
+//                                .setOtpParser(new Otp()) // only required if auto read otp is enabled optional parameter
                                 .setTimerListener(new Timer())
                                 .setTimeout(15)
 //                                .setReplacementVar(new ArrayList<String>(Arrays.asList("zafar")))
